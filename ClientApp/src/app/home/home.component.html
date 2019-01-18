@@ -1,0 +1,24 @@
+<div id="LoginForm">
+  <div class="container">
+    <h1 class="form-heading">Login</h1>
+    <div class="login-form">
+      <div class="main-div">
+        <div class="panel">
+          <p>Please enter your email and password</p>
+        </div>
+        <form  #loginForm="ngForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <input type="email" class="form-control" [(ngModel)]="model.username" name="username" id="inputEmail" placeholder="Email Address">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" [(ngModel)]="model.password" name="password" id="inputPassword" placeholder="Password">
+          </div>
+          <div class="forgot">
+            <a href="reset.html">Forgot password?</a>
+          </div>
+          <button type="submit" [hidden]="!loginForm.valid" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
