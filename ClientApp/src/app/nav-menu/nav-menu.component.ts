@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
 
+  loggedIn:boolean;
+  constructor(){
+    this.getUser();
+  }
+
+  getUser(){
+    if(localStorage.getItem("user") != null){
+      this.loggedIn = true;
+    }else{
+      this.loggedIn = false;
+    }
+  }
   collapse() {
     this.isExpanded = false;
   }
@@ -15,4 +27,6 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+
 }

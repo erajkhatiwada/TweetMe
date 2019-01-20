@@ -16,5 +16,9 @@ export class SignupService {
   login(body:any){
     return this.http.post(this.url+'api/auth/login',body);
   }
+
+  searchUser(query:any){
+    return this.http.get(this.url+'api/usersearch/query='+query);
+  }
   
 }

@@ -1,0 +1,10 @@
+<p>
+  Hello {{username}}
+</p>
+
+<button (click)="logout()">Logout</button>
+
+
+<div><input type="search" id="test" placeholder="search here" [(ngModel)]="userModel" ></div>
+
+<p *ngIf="showLoading">Loading...</p>

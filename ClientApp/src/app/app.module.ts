@@ -9,7 +9,11 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AccountComponent } from './account/account.component';
+
 import {SignupService} from './shared/signup.service';
+import {UserdetailsService} from './shared/user/userdetails.service';
+import {AuthGuard} from './shared/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,8 @@ import {SignupService} from './shared/signup.service';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,9 +32,10 @@ import {SignupService} from './shared/signup.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'signup', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'account', component: AccountComponent, canActivate:[AuthGuard] },
     ])
   ],
-  providers: [SignupService],
+  providers: [SignupService,AuthGuard,UserdetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
