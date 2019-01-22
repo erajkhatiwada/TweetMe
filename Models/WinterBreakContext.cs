@@ -16,6 +16,7 @@ namespace WinterProject.Models
         }
 
         public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Follow> Follow { get; set; }
         public virtual DbSet<Picture> Picture { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -43,11 +44,18 @@ namespace WinterProject.Models
                     .HasConstraintName("FK_Comment_User");
             });
 
+            modelBuilder.Entity<Follow>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Follow)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Follow_User");
+            });
+
             modelBuilder.Entity<Picture>(entity =>
             {
-                entity.Property(e => e.PictureId).ValueGeneratedNever();
-
-                entity.Property(e => e.PictureBinary).IsRequired();
+                entity.Property(e => e.PictureUrl).IsRequired();
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Picture)

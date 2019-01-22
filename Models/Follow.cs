@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace WinterProject.Models
 {
-    public partial class Picture
+    public partial class Follow
     {
-        public int PictureId { get; set; }
+        public int FollowId { get; set; }
         public int UserId { get; set; }
-        public string PictureUrl { get; set; }
+        public int FollowedUserId { get; set; }
 
         public User User { get; set; }
     }

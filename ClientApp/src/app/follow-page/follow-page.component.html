@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card container" style="width: 18rem;">
+    <img src="https://cdn.dribbble.com/users/124355/screenshots/2199042/profile_teaser.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Username: <strong>{{username}}</strong></h5>
+      <p class="card-text"><strong>{{firstName}} {{lastName}}</strong></p>
+      <a (click)="followRequest()" class="btn btn-primary" *ngIf="!showHideFollowButton">Follow</a>
+      <a  class="btn btn-success" *ngIf="showHideFollowButton">Followed</a>
+    </div>
+  </div>
+</div>
+<div class="pad"></div>
+
+<div class="container" *ngIf="messageIfNoTweets">
+  <div class="card">
+    <div class="card-body d-flex w-100 justify-content-between">
+      {{messageIfNoTweets}}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="list-group">
+    <a  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let tweet of tweets">
+      <div class="d-flex w-100 justify-content-between">
+        <small class="text-muted">{{tweet.dateCreated}}</small>
+      </div>
+      <p class="mb-1">{{tweet.userComment}}</p>
+      <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
+    </a>
+  </div>
+</div>

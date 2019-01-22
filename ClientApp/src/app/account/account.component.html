@@ -1,10 +1,43 @@
-<p>
-  Hello {{username}}
-</p>
+<div class="container">
+  <p class="align">
+    Hello <strong>{{username}}!</strong>
+  </p>
+</div>
 
-<button (click)="logout()">Logout</button>
 
+<div class="container">
+  <div class="align"><input  type="search" id="test" placeholder="search here" [(ngModel)]="userModel" ></div>
+</div>
 
-<div><input type="search" id="test" placeholder="search here" [(ngModel)]="userModel" ></div>
+<div class="container">
+  <ul class="list-group" *ngFor="let user of searchResults" (click)="goToFollowPage(user)">
+    <li class="list-group-item "><strong>Username: </strong>{{user.username}} <div><small><strong>FirstName: </strong>{{user.firstName}} <strong>LastName: </strong>{{user.lastName}}</small></div></li>
+  </ul>
+</div>
+
 
 <p *ngIf="showLoading">Loading...</p>
+
+<div class="pad"></div>
+
+<div class="container">
+  <div class="form-group">
+    <label for="comment">Tweet here:</label>
+    <textarea class="form-control" rows="2" id="comment" [(ngModel)]="userComment"></textarea>
+    <button (click)="tweet()"> TweetMe</button>
+  </div>
+</div>
+
+<div class="pad"></div>
+
+<div class="container">
+  <div class="list-group">
+    <a  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let tweet of tweets">
+      <div class="d-flex w-100 justify-content-between">
+        <small class="text-muted">{{tweet.dateCreated}}</small>
+      </div>
+      <p class="mb-1">{{tweet.userComment}}</p>
+      <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
+    </a>
+  </div>
+</div>

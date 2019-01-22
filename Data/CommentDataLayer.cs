@@ -9,10 +9,18 @@ namespace WinterProject.Data
     {
         public string convertedDate(string dateCreated)
         {
-            
+
             string currentYear = DateTime.Now.Year.ToString();
             string currentMonth = DateTime.Now.Month.ToString();
+            if (currentMonth.Length < 2)
+            {
+                currentMonth = "0" + currentMonth;
+            }
             string currentDate = DateTime.Now.Day.ToString();
+            if (currentDate.Length < 2)
+            {
+                currentMonth = "0" + currentDate;
+            }
 
             string fullDateInString = currentYear + "" + currentMonth + "" + currentDate;
 
@@ -27,10 +35,14 @@ namespace WinterProject.Data
             {
                 return "today";
             }
-            else
+            else if (fullSystemDate - dateCreatedInInt != 1)
             {
                 return stringDays + " days ago";
-            } 
+            }
+            else
+            {
+                return ("1 day ago");
+            }
         }
     }
 }

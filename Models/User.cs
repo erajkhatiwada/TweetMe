@@ -8,6 +8,7 @@ namespace WinterProject.Models
         public User()
         {
             Comment = new HashSet<Comment>();
+            Follow = new HashSet<Follow>();
             Picture = new HashSet<Picture>();
         }
 
@@ -19,6 +20,7 @@ namespace WinterProject.Models
         public string Password { get; set; }
 
         public ICollection<Comment> Comment { get; set; }
+        public ICollection<Follow> Follow { get; set; }
         public ICollection<Picture> Picture { get; set; }
     }
 }

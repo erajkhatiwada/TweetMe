@@ -1,0 +1,12 @@
+.container{
+    width: 500px;
+}
+
+.pad{
+    padding: 5%;
+}
+
+.textAlign{
+    position: relative;
+    align-content: center;
+}

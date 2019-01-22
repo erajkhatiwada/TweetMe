@@ -18,67 +18,43 @@ namespace WinterProject.Controllers
     public class PictureController : ControllerBase
     {
         private readonly WinterBreakContext _context;
-        private readonly IHostingEnvironment _environment;
 
-        public PictureController(WinterBreakContext context, IHostingEnvironment environment)
+        public PictureController(WinterBreakContext context)
         {
             _context = context;
-            _environment = environment;
         }
 
-        [HttpGet]
-        public IEnumerable<Picture> GetPicture()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPicture([FromRoute] int id)
         {
-            var picture = _context.Picture.ToList();
-            return picture;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var pictureTable = await _context.Picture.FindAsync(id);
 
+            if (pictureTable == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pictureTable);
         }
-
-        //[HttpPost]
-        //public IActionResult UploadFile()
-        //{
-        //    try
-        //    {
-        //        var file = Request.Form.Files[0];
-        //        string folderName = "Upload";
-        //        string webRootPath = _environment.WebRootPath;
-        //        string newPath = Path.Combine(webRootPath, folderName);
-        //        if (!Directory.Exists(newPath))
-        //        {
-        //            Directory.CreateDirectory(newPath);
-        //        }
-        //        if (file.Length > 0)
-        //        {
-        //            string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-        //            string fullPath = Path.Combine(newPath, fileName);
-        //            using (var stream = new FileStream(fullPath, FileMode.Create))
-        //            {
-        //                file.CopyTo(stream);
-        //            }
-        //        }
-        //        return Ok("Upload Successful.");
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        return Ok("Upload Failed: " + ex.Message);
-        //    }
-        //}
 
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> PostPicture([FromBody] Picture picture)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
-                var stream = new FileStream(path, FileMode.Create);
-                file.CopyToAsync(stream);
-                return Ok(new {length = file.Length, name = file.FileName});
+                return BadRequest(ModelState);
             }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
+
+            await _context.Picture.AddAsync(picture);
+            await _context.SaveChangesAsync();
+
+            return Ok(picture);
+
         }
 
     }

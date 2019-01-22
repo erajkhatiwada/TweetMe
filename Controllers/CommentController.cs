@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WinterProject.Data;
+using WinterProject.Dto;
 using WinterProject.Models;
 
 namespace WinterProject.Controllers
@@ -30,8 +32,8 @@ namespace WinterProject.Controllers
             return x;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetComment([FromRoute] int id)
+        [HttpGet("byComment={id}")]
+        public async Task<IActionResult> GetCommentByCommentId([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -52,6 +54,35 @@ namespace WinterProject.Controllers
             };
 
             return Ok(newComment);
+        }
+
+        [HttpGet("byUser={id}")]
+        public async Task<IActionResult> GetAllCommentFromUser([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var comment =  _context.Comment.Where(x => x.UserId == id).Select(x => new DtoUserComments()
+            {
+                CommentId = x.CommentId,
+                UserComment = x.UserComment,
+                DateCreated = _iComment.convertedDate(x.DateCreated)
+            }).ToList();
+
+            //var theActualDays = _iComment.convertedDate(comment.DateCreated);
+
+            //var newComment = new Comment
+            //{
+            //    CommentId = comment.CommentId,
+            //    UserId = comment.UserId,
+            //    UserComment = comment.UserComment,
+            //    DateCreated = theActualDays,
+            //    User = comment.User
+            //};
+
+            return Ok(comment);
         }
 
         [HttpPost]

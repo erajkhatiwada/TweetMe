@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import {SignUp} from '../shared/signup';
 import {SignupService} from '../shared/signup.service';
 import { Router } from '@angular/router';
@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './counter.component.html'
 })
 export class CounterComponent {
-  
+
+  /*@Input() public myData;
+  @Output() public childEvent = new EventEmitter(); */
+
   model:any = {};
   signUp:SignUp;
   constructor(private SignUpService: SignupService, private router: Router){}
 
+  //message = "hello world";
   register(){
     this.signUp = {
       username : this.model.username,
@@ -33,5 +37,10 @@ export class CounterComponent {
       console.log("completed");
     });
   }
+
+  // fireEvent(){
+  //   this.childEvent.emit('Hey Codeevolution');
+  //   console.log('clicked');
+  // }
 
 }

@@ -34,8 +34,15 @@
                     </a>
                 </li>
 
+                <li *ngIf="loggedIn">
+                    <a  (click)='logout()'>
+                        <span class='glyphicon glyphicon-th-list'></span> Logout
+                    </a>
+                </li>
 
             </ul>
         </div>
     </div>
 </div>
+
+

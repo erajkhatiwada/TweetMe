@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'app';
 
   constructor(private router: Router){
-   this.getSavedUser();
+   //this.getSavedUser();
   }
 
   getSavedUser(){

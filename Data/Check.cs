@@ -37,6 +37,17 @@ namespace WinterProject.Data
             return false;
         }
 
+        public async Task<bool> UserFollowed(int userId, int followUserId)
+        {
+            if(await _context.Follow.AnyAsync(x => x.UserId == userId && x.FollowedUserId == followUserId))
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
 
 
     }

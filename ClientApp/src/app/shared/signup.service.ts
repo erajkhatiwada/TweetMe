@@ -20,5 +20,21 @@ export class SignupService {
   searchUser(query:any){
     return this.http.get(this.url+'api/usersearch/query='+query);
   }
+
+  postTweet(tweet:any){
+    return this.http.post(this.url+'api/comment/',tweet);
+  }
+
+  receiveTweet(userId:any){
+    return this.http.get(this.url+'api/comment/byUser='+userId);
+  }
+
+  checkIfFollowed(follow:any){
+    return this.http.post(this.url+'api/followuser/check',follow);
+  }
+
+  follow(followUser:any){
+    return this.http.post(this.url+'api/followuser/post',followUser);
+  }
   
 }
