@@ -27,10 +27,13 @@ export class AccountComponent implements OnInit  {
   searchResults:any;
 
 
+  followersTweet:any;
+
   constructor(private router: Router, private user: UserdetailsService, private commonApi: SignupService) {
     this.details();
     this.dateAndTime();
     this.getTweets();
+    this.tweetFromAllFollowers();
    }
 
   ngOnInit() {
@@ -136,6 +139,12 @@ export class AccountComponent implements OnInit  {
       this.router.navigate(['/followPage'],{queryParams: val, skipLocationChange:false});
     }
     
+  }
+
+  tweetFromAllFollowers(){
+    this.commonApi.tweetsFromAllFollowers(this.id).subscribe(res => {
+      this.followersTweet = res;
+    });
   }
 
 

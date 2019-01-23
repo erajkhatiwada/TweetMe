@@ -5,7 +5,8 @@
       <div class="main-div">
         <div class="panel">
           <p>Please enter your email and password</p>
-
+          <p class="text-primary">{{logginInMessage}}</p>
+          <p class="text-danger">{{errorMessage}}</p>
         </div>
         <form  #loginForm="ngForm" (ngSubmit)="login()">
           <div class="form-group">

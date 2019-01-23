@@ -36,5 +36,9 @@ export class SignupService {
   follow(followUser:any){
     return this.http.post(this.url+'api/followuser/post',followUser);
   }
+
+  tweetsFromAllFollowers(userId:any){
+    return this.http.get(this.url+'api/followuser/allTweets='+userId);
+  }
   
 }

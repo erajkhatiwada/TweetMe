@@ -42,6 +42,7 @@ namespace WinterProject.Controllers
 
             var comment = await _context.Comment.FindAsync(id);
 
+
             var theActualDays = _iComment.convertedDate(comment.DateCreated);
 
             var newComment = new Comment
