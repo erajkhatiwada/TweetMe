@@ -9,6 +9,7 @@ namespace WinterProject.Models
         public int UserId { get; set; }
         public string UserComment { get; set; }
         public string DateCreated { get; set; }
+        public string CommentType { get; set; }
 
         public User User { get; set; }
     }

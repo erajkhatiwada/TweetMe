@@ -19,7 +19,7 @@ namespace WinterProject.Data
             string currentDate = DateTime.Now.Day.ToString();
             if (currentDate.Length < 2)
             {
-                currentMonth = "0" + currentDate;
+                currentDate = "0" + currentDate;
             }
 
             string fullDateInString = currentYear + "" + currentMonth + "" + currentDate;
@@ -43,6 +43,8 @@ namespace WinterProject.Data
             {
                 return ("1 day ago");
             }
+
+            //return fullSystemDate + "";
         }
     }
 }

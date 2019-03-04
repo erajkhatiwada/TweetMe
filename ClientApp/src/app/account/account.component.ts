@@ -29,12 +29,16 @@ export class AccountComponent implements OnInit  {
 
   followersTweet:any;
 
+  selectOptions = ["default", "public", "private"];
+  selected :any;
+
   constructor(private router: Router, private user: UserdetailsService, private commonApi: SignupService) {
     this.details();
     this.dateAndTime();
     this.getTweets();
     this.tweetFromAllFollowers();
-   }
+    this.selected = this.selectOptions[0];
+  }
 
   ngOnInit() {
 
@@ -102,13 +106,15 @@ export class AccountComponent implements OnInit  {
       }
       var merge = year + "" + newMonth + "" + newDay;
       this.systemDateInYearMonthDay = merge;
+      console.log(this.systemDateInYearMonthDay);
   }
 
   tweet(){
     this.tweetModel = {
       userComment : this.userComment,
       userId: this.id,
-      dateCreated: this.systemDateInYearMonthDay
+      dateCreated: this.systemDateInYearMonthDay,
+      commentType: this.selected
     }
     console.log(this.tweetModel);
     if(this.userComment == undefined || this.userComment == ""){
@@ -145,6 +151,10 @@ export class AccountComponent implements OnInit  {
     this.commonApi.tweetsFromAllFollowers(this.id).subscribe(res => {
       this.followersTweet = res;
     });
+  }
+
+  currentValue() {
+    console.log(this.selected);
   }
 
 

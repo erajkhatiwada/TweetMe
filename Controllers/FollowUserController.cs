@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WinterProject.Models;
 using WinterProject.Data;
 using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using WinterProject.Dto;
 
 namespace WinterProject.Controllers
@@ -93,7 +94,7 @@ namespace WinterProject.Controllers
 
             ArrayList allTweets = new ArrayList();
 
-            var allResult = _context.Follow.Where(x => x.UserId == id).Select(x => list.Add(x.FollowedUserId)).ToList();
+            _context.Follow.Where(x => x.UserId == id).Select(x => list.Add(x.FollowedUserId)).ToList();
 
             int[] temp = new int[list.Count];
 
@@ -102,9 +103,22 @@ namespace WinterProject.Controllers
                 temp[i] = (int)list[i];
             }
 
-            for(int i = 0; i < temp.Length; i++)
+            //for(int i = 0; i < temp.Length; i++)
+            //{
+            //    var x = _context.Comment.Where(m => m.UserId == temp[i]).Select(m => allTweets.Add(new TweetByFollowers() {
+            //        CommentId = m.CommentId,
+            //        UserId = m.UserId,
+            //        UserComment = m.UserComment,
+            //        DateCreated = _comment.convertedDate(m.DateCreated),
+            //        UserName = m.User.Username
+            //    })).ToList();
+
+            //}
+
+            for (int i = 0; i < temp.Length; i++)
             {
-                var x = _context.Comment.Where(m => m.UserId == temp[i]).Select(m => allTweets.Add(new TweetByFollowers() {
+                var x = _context.Comment.Where(m => m.UserId == temp[i]).Where(c => c.CommentType != "private").Select(m => allTweets.Add(new TweetByFollowers()
+                {
                     CommentId = m.CommentId,
                     UserId = m.UserId,
                     UserComment = m.UserComment,
@@ -113,8 +127,30 @@ namespace WinterProject.Controllers
                 })).ToList();
 
             }
-
+            _context.Database.CloseConnection();
             return Ok(allTweets);
+        }
+
+        [HttpPost("unfollow/currentUser={userId}/unfollowUser={followedUserId}")]
+        public async Task<IActionResult> Unfollow([FromRoute] int userId, int followedUserId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var unfollowRow = await _context.Follow.FirstOrDefaultAsync(x => x.UserId == userId && x.FollowedUserId == followedUserId);
+
+            if (unfollowRow == null)
+            {
+                return NotFound();
+            }
+
+            _context.Follow.Remove(unfollowRow);
+            _context.SaveChanges();
+
+            return Ok(unfollowRow);
+
         }
 
     }

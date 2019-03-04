@@ -10,5 +10,6 @@ namespace WinterProject.Dto
         public int CommentId { get; set; }
         public string UserComment { get; set; }
         public string DateCreated { get; set; }
+        public string CommentType { get; set; }
     }
 }

@@ -42,6 +42,10 @@ namespace WinterProject.Controllers
 
             var comment = await _context.Comment.FindAsync(id);
 
+            if (comment == null)
+            {
+                return NotFound();
+            }
 
             var theActualDays = _iComment.convertedDate(comment.DateCreated);
 
@@ -65,23 +69,53 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment =  _context.Comment.Where(x => x.UserId == id).Select(x => new DtoUserComments()
+            var comment = _context.Comment.Where(x => x.UserId == id).Select(x => new DtoUserComments()
             {
                 CommentId = x.CommentId,
                 UserComment = x.UserComment,
-                DateCreated = _iComment.convertedDate(x.DateCreated)
+                DateCreated = _iComment.convertedDate(x.DateCreated),
+                CommentType = x.CommentType
             }).ToList();
 
-            //var theActualDays = _iComment.convertedDate(comment.DateCreated);
+            return Ok(comment);
+        }
 
-            //var newComment = new Comment
-            //{
-            //    CommentId = comment.CommentId,
-            //    UserId = comment.UserId,
-            //    UserComment = comment.UserComment,
-            //    DateCreated = theActualDays,
-            //    User = comment.User
-            //};
+        /* when not followed */
+        [HttpGet("byUserSearch={id}")]
+        public async Task<IActionResult> GetAllCommentFromUserSearch([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var comment = _context.Comment.Where(x => x.UserId == id).Where(x => x.CommentType == "public").Select(x => new DtoUserComments()
+            {
+                CommentId = x.CommentId,
+                UserComment = x.UserComment,
+                DateCreated = _iComment.convertedDate(x.DateCreated),
+                CommentType = x.CommentType
+            }).ToList();
+
+            return Ok(comment);
+        }
+
+        /* when followed */
+        [HttpGet("byUserSearchFollowed={id}")]
+        public async Task<IActionResult> GetAllCommentFromUserSearchFollowed([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var comment = _context.Comment.Where(x => x.UserId == id).Where(x => x.CommentType != "private").Select(x => new DtoUserComments()
+            {
+                CommentId = x.CommentId,
+                UserComment = x.UserComment,
+                DateCreated = _iComment.convertedDate(x.DateCreated),
+                CommentType = x.CommentType
+            }).ToList();
 
             return Ok(comment);
         }

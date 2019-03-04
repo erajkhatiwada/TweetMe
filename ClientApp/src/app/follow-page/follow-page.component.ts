@@ -34,8 +34,16 @@ export class FollowPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTweetsById();
+
     this.checkIfFollowed();
+
+    if (this.showHideFollowButton === true) {
+      //this.loadTweetsByIdFollowed();
+     // this.loadTweetsById();
+    } else {
+      //this.loadTweetsById();
+      //this.loadTweetsByIdFollowed();
+    }
   }
 
   catchDetails(){
@@ -57,9 +65,18 @@ export class FollowPageComponent implements OnInit {
   }
 
   loadTweetsById(){
-    this.commonApi.receiveTweet(this.userId).subscribe( res => {
+    this.commonApi.receiveTweetFromUserSearch(this.userId).subscribe( res => {
       this.tweets = res;
       if(this.tweets.length == 0){
+        this.messageIfNoTweets = "The user have zero tweets!";
+      }
+    });
+  }
+
+  loadTweetsByIdFollowed() {
+    this.commonApi.receiveTweetFromUserSearchFollowed(this.userId).subscribe(res => {
+      this.tweets = res;
+      if (this.tweets.length == 0) {
         this.messageIfNoTweets = "The user have zero tweets!";
       }
     });
@@ -83,8 +100,10 @@ export class FollowPageComponent implements OnInit {
       console.log(temp);
       if(temp == true){
         this.showHideFollowButton = true;
+        this.loadTweetsByIdFollowed();
       }else{
         this.showHideFollowButton = false;
+        this.loadTweetsById();
       }
     });
   }
@@ -94,6 +113,21 @@ export class FollowPageComponent implements OnInit {
       console.log("Followed");
       this.checkIfFollowed();
     });
+  }
+
+  unfollow(){
+    console.log(this.loggedUserId+" "+this.userId);
+    if(window.confirm("Do you want to unfollow?")){
+      this.commonApi.unfollow(this.loggedUserId,this.userId).subscribe(res => {
+        console.log('unfollowed');
+        window.alert('unfollowed');
+        this.checkIfFollowed();
+      },error=> {
+        window.alert("Error unfollowing");
+        console.log(error);
+      });
+    }
+    
   }
 
 }

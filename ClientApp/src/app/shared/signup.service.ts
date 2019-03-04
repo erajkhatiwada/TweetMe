@@ -29,6 +29,14 @@ export class SignupService {
     return this.http.get(this.url+'api/comment/byUser='+userId);
   }
 
+  receiveTweetFromUserSearch(userId: any) {
+    return this.http.get(this.url + 'api/comment/byUserSearch=' + userId);
+  }
+
+  receiveTweetFromUserSearchFollowed(userId: any) {
+    return this.http.get(this.url + 'api/comment/byUserSearchFollowed=' + userId);
+  }
+
   checkIfFollowed(follow:any){
     return this.http.post(this.url+'api/followuser/check',follow);
   }
@@ -39,6 +47,10 @@ export class SignupService {
 
   tweetsFromAllFollowers(userId:any){
     return this.http.get(this.url+'api/followuser/allTweets='+userId);
+  }
+
+  unfollow(userId:number, unfollowUserId:number){
+      return this.http.post(this.url+'api/FollowUser/unfollow/currentUser='+userId+'/unfollowUser='+unfollowUserId,null);
   }
   
 }

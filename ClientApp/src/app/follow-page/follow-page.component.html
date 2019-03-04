@@ -5,7 +5,7 @@
       <h5 class="card-title">Username: <strong>{{username}}</strong></h5>
       <p class="card-text"><strong>{{firstName}} {{lastName}}</strong></p>
       <a (click)="followRequest()" class="btn btn-primary" *ngIf="!showHideFollowButton">Follow</a>
-      <a  class="btn btn-success" *ngIf="showHideFollowButton">Followed</a>
+      <a  class="btn btn-success" *ngIf="showHideFollowButton" (click)="unfollow()">Followed</a>
     </div>
   </div>
 </div>
