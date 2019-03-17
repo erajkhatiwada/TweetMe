@@ -1,35 +1,22 @@
+/*!
+ * Start Bootstrap - Small Business (https://startbootstrap.com/template-overviews/small-business)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-small-business/blob/master/LICENSE)
+ */
 
-.card-text:last-child {
-  margin-bottom: 0;
-  color: rgba(0, 0, 0, .5);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 17px;
-  word-break: keep-all;
+nav.navbar.navbar-expand-lg.navbar-light.bg-custom.fixed-top {
+  height: 56px;
 }
 
-.card-title {
-  margin-bottom: .75rem;
-  color: #000;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 20px;
-  margin-bottom: 10px;
-  padding: 0 20px;
-  word-break: keep-all;
-}
 
-.pad {
-  padding: 15px;
+.navbar-nav {
+  float: right;
+  margin: 0;
 }
 
 .bg-custom {
   background-color: #ffffff !important;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-}
-
-nav.navbar.navbar-expand-lg.navbar-light.bg-custom.fixed-top {
-  height: 56px;
 }
 
 .navbar-dark .navbar-nav .active > .nav-link,
@@ -76,30 +63,26 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-custom.fixed-top {
   font-family: Calibre, Helvetica Neue, Segoe UI, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 
-.form-control[_ngcontent-c2] {
+.form-control {
   display: block;
   width: 100%;
-  height: 42px;
-  /* height: calc(2.25rem + 2px); */
+  height: calc(2.25rem + 2px);
   padding: .375rem .75rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 2px solid #ced4da;
-  border-radius: 4px;
-  -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  border: 4px solid #ced4da;
+  border-radius: .25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
 }
 
 .remove_a_color {
   color: #f1f1f1;
   text-decoration: none;
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
 ._6b6b {
@@ -116,16 +99,21 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-custom.fixed-top {
   padding: 0 0 15px;
 }
 
-/* for view employee */
-.btn-custom {
-  color: #fff;
-  background-color: #000000;
-  border-color: #0a0a0a;
-}
-
-.btn:hover {
-  color: #ffffff;
-  text-decoration: none;
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 15px;
+  height: 200px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px #343a405c;
 }
 
 

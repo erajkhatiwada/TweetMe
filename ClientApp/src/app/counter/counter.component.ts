@@ -4,7 +4,8 @@ import {SignupService} from '../shared/signup.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-counter-component',
-  templateUrl: './counter.component.html'
+  templateUrl: './counter.component.html',
+  styleUrls: ['./counter.component.css']
 })
 export class CounterComponent {
 

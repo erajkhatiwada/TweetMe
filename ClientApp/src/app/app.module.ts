@@ -18,6 +18,7 @@ import {AuthLoginSignupGuard} from './shared/auth/auth-login-signup.guard';
 import { FollowPageComponent } from './follow-page/follow-page.component';
 import { Page1Component } from './page1/page1.component';
 import { Page2Component } from './page2/page2.component';
+import { NewnavMenuComponent } from './newnav-menu/newnav-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { Page2Component } from './page2/page2.component';
     AccountComponent,
     FollowPageComponent,
     Page1Component,
-    Page2Component
+    Page2Component,
+    NewnavMenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

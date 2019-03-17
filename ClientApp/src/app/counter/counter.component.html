@@ -1,29 +1,32 @@
-<div>
-  <form #signUp="ngForm" (ngSubmit)="register()">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Username</label>
-      <input type="text" class="form-control" placeholder="Enter username" [(ngModel)]="model.username" name="username" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">FirstName</label>
-      <input type="text" class="form-control" placeholder="Enter firstname" [(ngModel)]="model.firstname" name="firstname" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">LastName</label>
-      <input type="text" class="form-control" placeholder="Enter lastname" [(ngModel)]="model.lastname" name="lastname" required>
-    </div>
+  <div class="container margin-top ">
+    <div class="container col-md-12">
+      <div class="col-md-3"></div>
+      <form #signUp="ngForm" (ngSubmit)="register()" class="col-md-6">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Username</label>
+          <input type="text" class="form-control" placeholder="Enter username" [(ngModel)]="model.username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">FirstName</label>
+          <input type="text" class="form-control" placeholder="Enter firstname" [(ngModel)]="model.firstname" name="firstname" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">LastName</label>
+          <input type="text" class="form-control" placeholder="Enter lastname" [(ngModel)]="model.lastname" name="lastname" required>
+        </div>
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="model.email" name="email" required>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="model.email" name="email" required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
 
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="model.password" name="password" required>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="model.password" name="password" required>
+        </div>
+        <button type="submit" [disabled]="!signUp.valid" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-    <button type="submit" [disabled]="!signUp.valid" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+    </div>
 
