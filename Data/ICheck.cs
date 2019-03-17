@@ -10,6 +10,5 @@ namespace WinterProject.Data
         Task<bool> UsernameExist(string username);
         Task<bool> EmailExist(string email);
         Task<bool> UserFollowed(int userId, int followUserId);
-      
     }
 }

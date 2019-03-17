@@ -9,3 +9,8 @@
 .pad{
     padding: 5%;
 }
+
+.float-right {
+  float: right;
+  margin-right: 12px
+}

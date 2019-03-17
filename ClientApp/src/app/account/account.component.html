@@ -34,36 +34,33 @@
 <div class="pad"></div>
 
 
-<div class="container">
+<div class="container" *ngIf="followersTweet">
     <h3 *ngIf="followersTweet">Followed User Tweets</h3>
     <div class="list-group">
       <a  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let tweet of followersTweet">
         <div class="d-flex w-100 justify-content-between">
           <small class="text-muted">{{tweet.userName}}</small>
-          <small class="text-muted">{{tweet.dateCreated}}</small>
+          <small class="text-muted float-right">{{tweet.dateCreated}}</small>
+          <small class="text-muted float-right" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
+          <small class="text-muted float-right" *ngIf="!tweet.commentType">default</small>
         </div>
         <p class="mb-1">{{tweet.userComment}}</p>
-        <small class="text-muted" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
-        <small class="text-muted" *ngIf="!tweet.commentType">default</small>
-        <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
       </a>
     </div>
   </div>
 
 
-<div class="container">
+<div class="container" *ngIf="tweets">
   <h3 *ngIf="tweets">My Tweets</h3>
   <div class="list-group">
     <a class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let tweet of tweets">
       <div class="d-flex w-100 justify-content-between">
         <small class="text-muted">{{username}}</small>
-        <small class="text-muted">{{tweet.dateCreated}}</small>
+        <small class="text-muted float-right">{{tweet.dateCreated}}</small>
+        <small class="text-muted float-right" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
+        <small class="text-muted float-right" *ngIf="!tweet.commentType">default</small>
       </div>
       <p class="mb-1">{{tweet.userComment}}</p>
-
-      <small class="text-muted" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
-      <small class="text-muted" *ngIf="!tweet.commentType">default</small>
-      <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
     </a>
   </div>
 </div>

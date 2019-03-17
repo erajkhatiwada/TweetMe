@@ -133,5 +133,64 @@ namespace WinterProject.Controllers
 
             return StatusCode(201);
         }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var x = await _context.Comment.FindAsync(id);
+            if (x == null)
+            {
+                return NotFound();
+            }
+
+            _context.Comment.Remove(x);
+            await _context.SaveChangesAsync();
+            return Ok(x);
+
+        }
+
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] int id, [FromBody] Comment comments)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != comments.CommentId)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _context.Comment.Update(comments);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CommentExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(comments);
+
+        }
+
+        private bool CommentExists(int id)
+        {
+            return _context.Comment.Any(e => e.CommentId == id);
+        }
     }
 }

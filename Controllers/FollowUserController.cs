@@ -123,6 +123,7 @@ namespace WinterProject.Controllers
                     UserId = m.UserId,
                     UserComment = m.UserComment,
                     DateCreated = _comment.convertedDate(m.DateCreated),
+                    CommentType = m.CommentType,
                     UserName = m.User.Username
                 })).ToList();
 

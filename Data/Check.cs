@@ -17,7 +17,7 @@ namespace WinterProject.Data
             _context = context;
         }
 
-        public async Task<bool> UsernameExist(string username)
+        public  async Task<bool> UsernameExist(string username)
         {
             if (await _context.User.AnyAsync(x => x.Username == username))
             {
@@ -27,7 +27,7 @@ namespace WinterProject.Data
             return false;
         }
 
-        public async Task<bool> EmailExist(string email)
+        public  async Task<bool> EmailExist(string email)
         {
             if (await _context.User.AnyAsync(x => x.Email == email))
             {
@@ -37,7 +37,7 @@ namespace WinterProject.Data
             return false;
         }
 
-        public async Task<bool> UserFollowed(int userId, int followUserId)
+        public  async Task<bool> UserFollowed(int userId, int followUserId)
         {
             if(await _context.Follow.AnyAsync(x => x.UserId == userId && x.FollowedUserId == followUserId))
             {

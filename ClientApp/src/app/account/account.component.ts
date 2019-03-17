@@ -87,25 +87,25 @@ export class AccountComponent implements OnInit  {
 
   dateAndTime() {
       let x = new Date();
-      var newDay;
-      var newMonth;
-      var year = x.getFullYear();
-      var month = x.getMonth() + 1;
-      var day = x.getDate();
+      //var newDay;
+      //var newMonth;
+      //var year = x.getFullYear();
+      //var month = x.getMonth() + 1;
+      //var day = x.getDate();
 
-      if (day < 10) {
-        newDay = "0" + day;
-      } else {
-        newDay = day;
-      }
+      //if (day < 10) {
+      //  newDay = "0" + day;
+      //} else {
+      //  newDay = day;
+      //}
   
-      if (month < 10) {
-        newMonth = "0" + month;
-      } else {
-        newMonth = month;
-      }
-      var merge = year + "" + newMonth + "" + newDay;
-      this.systemDateInYearMonthDay = merge;
+      //if (month < 10) {
+      //  newMonth = "0" + month;
+      //} else {
+      //  newMonth = month;
+      //}
+      //var merge = year + "" + newMonth + "" + newDay;
+      this.systemDateInYearMonthDay = x.toJSON();
       console.log(this.systemDateInYearMonthDay);
   }
 
@@ -150,6 +150,7 @@ export class AccountComponent implements OnInit  {
   tweetFromAllFollowers(){
     this.commonApi.tweetsFromAllFollowers(this.id).subscribe(res => {
       this.followersTweet = res;
+      console.log(this.followersTweet);
     });
   }
 
