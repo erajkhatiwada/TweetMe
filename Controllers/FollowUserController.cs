@@ -103,18 +103,6 @@ namespace WinterProject.Controllers
                 temp[i] = (int)list[i];
             }
 
-            //for(int i = 0; i < temp.Length; i++)
-            //{
-            //    var x = _context.Comment.Where(m => m.UserId == temp[i]).Select(m => allTweets.Add(new TweetByFollowers() {
-            //        CommentId = m.CommentId,
-            //        UserId = m.UserId,
-            //        UserComment = m.UserComment,
-            //        DateCreated = _comment.convertedDate(m.DateCreated),
-            //        UserName = m.User.Username
-            //    })).ToList();
-
-            //}
-
             for (int i = 0; i < temp.Length; i++)
             {
                 var x = _context.Comment.Where(m => m.UserId == temp[i]).Where(c => c.CommentType != "private").Select(m => allTweets.Add(new TweetByFollowers()
@@ -128,8 +116,10 @@ namespace WinterProject.Controllers
                 })).ToList();
 
             }
+
+            var latest = allTweets.Cast<TweetByFollowers>().ToList().OrderByDescending(x => x.CommentId);
             _context.Database.CloseConnection();
-            return Ok(allTweets);
+            return Ok(latest);
         }
 
         [HttpPost("unfollow/currentUser={userId}/unfollowUser={followedUserId}")]

@@ -14,3 +14,17 @@
   float: right;
   margin-right: 12px
 }
+
+.fa {
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fa_color {
+  color: darkblue;
+}
+
+.fa_nolike {
+  color: lightslategray;
+}

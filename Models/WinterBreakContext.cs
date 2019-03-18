@@ -17,6 +17,7 @@ namespace WinterProject.Models
 
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Follow> Follow { get; set; }
+        public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Picture> Picture { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -51,6 +52,21 @@ namespace WinterProject.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Follow_User");
+            });
+
+            modelBuilder.Entity<Like>(entity =>
+            {
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.Like)
+                    .HasForeignKey(d => d.CommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Like_User_Comment");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Like)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Like_User");
             });
 
             modelBuilder.Entity<Picture>(entity =>

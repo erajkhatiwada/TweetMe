@@ -30,6 +30,23 @@ export class HomeComponent  {
     console.log(this.loginUser);
     this.authService.login(this.loginUser).subscribe( res => {
       console.log(res);
+
+      /* JWT TEST */
+      var x = res;
+      let jwt = JSON.parse(JSON.stringify(x)).token;
+
+      let jwtData = jwt.split('.')[1];
+      let decodedJwtJsonData = window.atob(jwtData);
+      let decodedJwtData = JSON.parse(decodedJwtJsonData);
+
+      let isAdmin = decodedJwtData.nameid;
+
+      //console.log('jwtData: ' + jwtData)
+      //console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
+      //console.log('decodedJwtData: ' + decodedJwtData)
+      //console.log('Is admin: ' + isAdmin)
+      /* JWT END */
+
       this.logginInMessage = "Logged In";
       localStorage.setItem("user",JSON.stringify(res));
       setTimeout(() => {

@@ -59,8 +59,15 @@
         <small class="text-muted float-right">{{tweet.dateCreated}}</small>
         <small class="text-muted float-right" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
         <small class="text-muted float-right" *ngIf="!tweet.commentType">default</small>
+        <p>{{tweet.like.length}}</p>
       </div>
       <p class="mb-1">{{tweet.userComment}}</p>
+      <!--<div *ngFor="let m of tweet.like; let i=index">
+    <p *ngIf="m.userId == id"><i class="fa fa-thumbs-up fa_color"></i></p>
+  </div>-->
+
+      <i class="fa fa-thumbs-up fa_color" *ngIf="tweet.likedByCurrentUser == 'true'"></i>
+      <i class="fa fa-thumbs-up fa_nolike" *ngIf="tweet.likedByCurrentUser == 'false'"></i>
     </a>
   </div>
 </div>

@@ -67,6 +67,7 @@ export class FollowPageComponent implements OnInit {
   loadTweetsById(){
     this.commonApi.receiveTweetFromUserSearch(this.userId).subscribe( res => {
       this.tweets = res;
+      console.log(this.tweets);
       if(this.tweets.length == 0){
         this.messageIfNoTweets = "The user have zero tweets!";
       }
@@ -76,6 +77,7 @@ export class FollowPageComponent implements OnInit {
   loadTweetsByIdFollowed() {
     this.commonApi.receiveTweetFromUserSearchFollowed(this.userId).subscribe(res => {
       this.tweets = res;
+      console.log(this.tweets);
       if (this.tweets.length == 0) {
         this.messageIfNoTweets = "The user have zero tweets!";
       }

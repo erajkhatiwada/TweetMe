@@ -28,7 +28,7 @@ namespace WinterProject.Controllers
         [HttpGet]
         public IEnumerable<Comment> GetComment()
         {
-            var x =  _context.Comment.ToList();
+            var x =  _context.Comment.Include(y => y.Like).ToList();
             return x;
         }
 
@@ -55,7 +55,7 @@ namespace WinterProject.Controllers
                 UserId = comment.UserId,
                 UserComment = comment.UserComment,
                 DateCreated = theActualDays,
-                User = comment.User
+                User = comment.User,
             };
 
             return Ok(newComment);
@@ -69,14 +69,15 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment = _context.Comment.Where(x => x.UserId == id).Select(x => new DtoUserComments()
+            var comment = _context.Comment.Where(x => x.UserId == id).Include(y => y.Like).Select(x => new DtoUserComments()
             {
                 CommentId = x.CommentId,
                 UserComment = x.UserComment,
                 DateCreated = _iComment.convertedDate(x.DateCreated),
-                CommentType = x.CommentType
-            }).ToList();
-
+                CommentType = x.CommentType,
+                Like = x.Like,
+                LikedByCurrentUser = LikedByUser(id,x.CommentId,x.Like)
+            }).ToList().OrderByDescending(x => x.CommentId);
             return Ok(comment);
         }
 
@@ -155,7 +156,7 @@ namespace WinterProject.Controllers
         }
 
         [HttpPut("edit/{id}")]
-        public async Task<IActionResult> DeleteComment([FromRoute] int id, [FromBody] Comment comments)
+        public async Task<IActionResult> EditComment([FromRoute] int id, [FromBody] Comment comments)
         {
             if (!ModelState.IsValid)
             {
@@ -191,6 +192,19 @@ namespace WinterProject.Controllers
         private bool CommentExists(int id)
         {
             return _context.Comment.Any(e => e.CommentId == id);
+        }
+
+        private string LikedByUser(int userId, int commentId, ICollection<Like> arr)
+        {
+            foreach (var x in arr)
+            {
+                if (x.UserId == userId && x.CommentId == commentId)
+                {
+                    return "true";
+                }
+            }
+
+            return "false";
         }
     }
 }

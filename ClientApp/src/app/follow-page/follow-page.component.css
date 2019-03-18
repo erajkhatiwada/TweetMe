@@ -10,3 +10,7 @@
     position: relative;
     align-content: center;
 }
+
+.float-right {
+  float: right;
+}

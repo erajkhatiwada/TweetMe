@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card container" style="width: 18rem;">
-    <img src="https://cdn.dribbble.com/users/124355/screenshots/2199042/profile_teaser.png" class="card-img-top" alt="...">
+    <img src="https://cdn1.iconfinder.com/data/icons/ui-color/512/Untitled-3-512.png" class="card-img-top" style="width: 100px" alt="...">
     <div class="card-body">
       <h5 class="card-title">Username: <strong>{{username}}</strong></h5>
       <p class="card-text"><strong>{{firstName}} {{lastName}}</strong></p>
@@ -24,6 +24,8 @@
     <a  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let tweet of tweets">
       <div class="d-flex w-100 justify-content-between">
         <small class="text-muted">{{tweet.dateCreated}}</small>
+        <small class="text-muted float-right" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
+        <small class="text-muted float-right" *ngIf="!tweet.commentType">default</small>
       </div>
       <p class="mb-1">{{tweet.userComment}}</p>
       <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
