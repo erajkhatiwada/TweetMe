@@ -66,8 +66,8 @@
     <p *ngIf="m.userId == id"><i class="fa fa-thumbs-up fa_color"></i></p>
   </div>-->
 
-      <i class="fa fa-thumbs-up fa_color" *ngIf="tweet.likedByCurrentUser == 'true'"></i>
-      <i class="fa fa-thumbs-up fa_nolike" *ngIf="tweet.likedByCurrentUser == 'false'"></i>
+      <i class="fa fa-thumbs-up fa_color" *ngIf="tweet.likedByCurrentUser == 'true'" (click)="removeLike(tweet)" ></i>
+      <i class="fa fa-thumbs-up fa_nolike" *ngIf="tweet.likedByCurrentUser == 'false'" (click)="likeTheTweet(tweet)"></i>
     </a>
   </div>
 </div>

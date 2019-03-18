@@ -158,5 +158,34 @@ export class AccountComponent implements OnInit  {
     console.log(this.selected);
   }
 
+  likeTheTweet(data: any) {
+    var body = {
+      "commentId": data.commentId,
+      "userId": this.id
+    };
+    this.commonApi.postLikes(body).subscribe(res => {
+      console.log(res);
+      this.getTweets();
+    }, error => {
+      console.log(error);
+    });
+    console.log(body);
+
+  }
+
+  removeLike(data:any) {
+    var body = {
+      "commentId": data.commentId,
+      "userId": this.id
+    };
+    this.commonApi.removeLikes(body).subscribe(res => {
+      console.log(res);
+      this.getTweets();
+    }, error => {
+      console.log(error);
+    });
+   // console.log(body);
+  }
+
 
 }

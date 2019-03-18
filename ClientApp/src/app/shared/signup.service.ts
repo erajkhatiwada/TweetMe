@@ -52,5 +52,13 @@ export class SignupService {
   unfollow(userId:number, unfollowUserId:number){
       return this.http.post(this.url+'api/FollowUser/unfollow/currentUser='+userId+'/unfollowUser='+unfollowUserId,null);
   }
+
+  postLikes(like: any) {
+    return this.http.post(this.url + 'api/likes/likeTweet', like);
+  }
+
+  removeLikes(like: any) {
+    return this.http.post(this.url + 'api/likes/removelike', like);
+  }
   
 }
