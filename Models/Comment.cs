@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WinterProject.Dto;
 
 namespace WinterProject.Models
 {

@@ -26,6 +26,7 @@
         <small class="text-muted">{{tweet.dateCreated}}</small>
         <small class="text-muted float-right" *ngIf="tweet.commentType">{{tweet.commentType}}</small>
         <small class="text-muted float-right" *ngIf="!tweet.commentType">default</small>
+        <p class="float-right">{{tweet.like.length}}</p>
       </div>
       <p class="mb-1">{{tweet.userComment}}</p>
       <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->

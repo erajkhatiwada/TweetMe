@@ -30,7 +30,9 @@ export class AccountComponent implements OnInit  {
   followersTweet:any;
 
   selectOptions = ["default", "public", "private"];
-  selected :any;
+  selected: any;
+
+  userListWithUsername:any;
 
   constructor(private router: Router, private user: UserdetailsService, private commonApi: SignupService) {
     this.details();
@@ -187,5 +189,16 @@ export class AccountComponent implements OnInit  {
    // console.log(body);
   }
 
+  findUserFromComments(commentId:number) {
+    this.commonApi.whoLikedTheTweet(commentId).subscribe(res => {
+      this.userListWithUsername = JSON.parse(JSON.stringify(res)).like;
+      setTimeout(() => {
+        this.userListWithUsername = [];
+      },5000);
+      console.log(this.userListWithUsername);
+    }, error => {
+      console.log(error);
+    });
+  }
 
 }

@@ -60,5 +60,9 @@ export class SignupService {
   removeLikes(like: any) {
     return this.http.post(this.url + 'api/likes/removelike', like);
   }
+
+  whoLikedTheTweet(user: any) {
+    return this.http.post(this.url + 'api/comment/byComment='+user, null);
+  } 
   
 }

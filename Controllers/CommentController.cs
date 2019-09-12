@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,7 @@ namespace WinterProject.Controllers
             return x;
         }
 
-        [HttpGet("byComment={id}")]
+        [HttpPost("byComment={id}")]
         public async Task<IActionResult> GetCommentByCommentId([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -40,7 +41,8 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment = await _context.Comment.FindAsync(id);
+            var comment =  _context.Comment.Include(o => o.Like).FirstOrDefault(y => y.CommentId == id);
+
 
             if (comment == null)
             {
@@ -49,13 +51,13 @@ namespace WinterProject.Controllers
 
             var theActualDays = _iComment.convertedDate(comment.DateCreated);
 
-            var newComment = new Comment
+            var newComment = new DtoUserCommentsWithUsername()
             {
                 CommentId = comment.CommentId,
-                UserId = comment.UserId,
                 UserComment = comment.UserComment,
                 DateCreated = theActualDays,
-                User = comment.User,
+                Like = await usernameFinder(comment.Like),
+                CommentType = comment.CommentType
             };
 
             return Ok(newComment);
@@ -69,7 +71,7 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment = _context.Comment.Where(x => x.UserId == id).Include(y => y.Like).Select(x => new DtoUserComments()
+            var comment = _context.Comment.Where(x => x.UserId == id).Include(y => y.Like).ToList().Select(x => new DtoUserComments()
             {
                 CommentId = x.CommentId,
                 UserComment = x.UserComment,
@@ -90,12 +92,13 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment = _context.Comment.Where(x => x.UserId == id).Where(x => x.CommentType == "public").Select(x => new DtoUserComments()
+            var comment = _context.Comment.Where(x => x.UserId == id).Include(y => y.Like).Where(x => x.CommentType == "public").Select(x => new DtoUserComments()
             {
                 CommentId = x.CommentId,
                 UserComment = x.UserComment,
                 DateCreated = _iComment.convertedDate(x.DateCreated),
-                CommentType = x.CommentType
+                CommentType = x.CommentType,
+                Like = x.Like
             }).ToList();
 
             return Ok(comment);
@@ -110,12 +113,14 @@ namespace WinterProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            var comment = _context.Comment.Where(x => x.UserId == id).Where(x => x.CommentType != "private").Select(x => new DtoUserComments()
+            var comment = _context.Comment.Where(x => x.UserId == id).Include(y => y.Like).Where(x => x.CommentType != "private").Select(x => new DtoUserComments()
             {
                 CommentId = x.CommentId,
                 UserComment = x.UserComment,
                 DateCreated = _iComment.convertedDate(x.DateCreated),
-                CommentType = x.CommentType
+                CommentType = x.CommentType,
+                Like = x.Like
+
             }).ToList();
 
             return Ok(comment);
@@ -205,6 +210,33 @@ namespace WinterProject.Controllers
             }
 
             return "false";
+        }
+
+        private async Task<ICollection<DtoLike>> usernameFinder(ICollection<Like> like)
+        {
+            ICollection<DtoLike> list = new List<DtoLike>();
+            foreach (var likes in like)
+            {
+                var m = new DtoLike()
+                {
+                    CommentId = likes.CommentId,
+                    LikeId = likes.LikeId,
+                    Comment = likes.Comment,
+                    UserId = likes.UserId,
+                    User = likes.User,
+                    UserName = await userNameFindingMethod(likes.UserId)
+                };
+                list.Add(m);
+            }
+
+            return list;
+        }
+
+        private async Task<string> userNameFindingMethod(int id)
+        {
+            var x = await _context.User.FirstOrDefaultAsync(y => y.UserId == id);
+           
+            return x.Username;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace WinterProject.Data
             return hashed;
         }
 
-        public async Task<bool> Login(string username, string password)
+        public  async Task<bool> Login(string username, string password)
         {
             if ( ((await _context.User.AnyAsync(x => x.Username == username)) || (await _context.User.AnyAsync(x => x.Email == username))) && (await _context.User.AnyAsync(x => x.Password == password)))
             {

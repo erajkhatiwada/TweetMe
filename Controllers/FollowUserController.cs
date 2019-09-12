@@ -105,14 +105,15 @@ namespace WinterProject.Controllers
 
             for (int i = 0; i < temp.Length; i++)
             {
-                var x = _context.Comment.Where(m => m.UserId == temp[i]).Where(c => c.CommentType != "private").Select(m => allTweets.Add(new TweetByFollowers()
+                var x = _context.Comment.Where(m => m.UserId == temp[i]).Where(c => c.CommentType != "private").Include(y => y.Like).Select(m => allTweets.Add(new TweetByFollowers()
                 {
                     CommentId = m.CommentId,
                     UserId = m.UserId,
                     UserComment = m.UserComment,
                     DateCreated = _comment.convertedDate(m.DateCreated),
                     CommentType = m.CommentType,
-                    UserName = m.User.Username
+                    UserName = m.User.Username,
+                    Like = m.Like
                 })).ToList();
 
             }
